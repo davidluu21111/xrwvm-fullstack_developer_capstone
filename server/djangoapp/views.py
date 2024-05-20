@@ -1,6 +1,6 @@
 # Uncomment the required imports before adding the code
 from .models import CarMake, CarModel
-from django.shortcuts import render
+# from django.shortcuts import render
 # from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 # from django.shortcuts import get_object_or_404, render, redirect
@@ -39,12 +39,14 @@ def login_user(request):
     return JsonResponse(data)
 
 # Create a `logout_request` view to handle sign out request
+
 def logout_request(request):
     logout(request)
     data = {"userName": ""}
     return JsonResponse(data)
 
 # Create a `registration` view to handle sign up request
+
 @csrf_exempt
 def registration(request):
     context = {}
