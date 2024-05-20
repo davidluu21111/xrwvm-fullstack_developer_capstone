@@ -5,6 +5,7 @@ from .models import CarMake, CarModel
 from django.contrib.auth.models import User
 # from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import logout
+from django.core.exceptions import ObjectDoesNotExist
 # from django.contrib import messages
 # from datetime import datetime
 from .restapis import get_request, analyze_review_sentiments, post_review
@@ -49,8 +50,7 @@ def logout_request(request):
 
 @csrf_exempt
 def registration(request):
-    context = {}
-
+    # context = {}
     data = json.loads(request.body)
     username = data['userName']
     password = data['password']
@@ -58,12 +58,12 @@ def registration(request):
     last_name = data['lastName']
     email = data['email']
     username_exist = False
-    email_exist = False
+    # email_exist = False
     try:
         # Check if user already exists
         User.objects.get(username=username)
         username_exist = True
-    except:
+    except User.DoesNotExist::
         # If not, simply log this is a new user
         logger.debug("{} is new user".format(username))
 
