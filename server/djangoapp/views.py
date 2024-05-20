@@ -41,6 +41,7 @@ def login_user(request):
 
 # Create a `logout_request` view to handle sign out request
 
+
 def logout_request(request):
     logout(request)
     data = {"userName": ""}
@@ -85,6 +86,8 @@ def registration(request):
 # Update the `get_dealerships` view to render the index page with
 # a list of dealerships
 # Update the `get_dealerships` render list of dealerships all by default, particular state if state is passed
+
+
 def get_dealerships(request, state="All"):
     if (state == "All"):
         endpoint = "/fetchDealers"
@@ -98,6 +101,8 @@ def get_dealerships(request, state="All"):
 # ...
 
 # Create a `get_dealer_details` view to render the dealer details
+
+
 def get_dealer_details(request, dealer_id):
     if (dealer_id):
         endpoint = "/fetchDealer/"+str(dealer_id)
@@ -107,8 +112,10 @@ def get_dealer_details(request, dealer_id):
         return JsonResponse({"status": 400, "message": "Bad Request"})
 
 # Create a `add_review` view to submit a review
+
+
 def add_review(request):
-    if(request.user.is_anonymous == False):
+    if (request.user.is_anonymous == False):
         data = json.loads(request.body)
         try:
             response = post_review(data)
@@ -117,6 +124,7 @@ def add_review(request):
             return JsonResponse({"status": 401, "message": "Error in posting review"})
     else:
         return JsonResponse({"status": 403, "message": "Unauthorized"})
+
 
 def get_dealer_reviews(request, dealer_id):
     # if dealer id has been provided
@@ -130,6 +138,7 @@ def get_dealer_reviews(request, dealer_id):
         return JsonResponse({"status": 200, "reviews": reviews})
     else:
         return JsonResponse({"status": 400, "message": "Bad Request"})
+
 
 def get_cars(request):
     count = CarMake.objects.filter().count()
